@@ -2,8 +2,8 @@
 # Environment files
 # ======================
 .env
-backend/.env
-frontend/.env
+backendd/.env
+frontendd/.env
 
 # ======================
 # Node
