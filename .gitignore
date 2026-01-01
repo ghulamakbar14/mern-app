@@ -22,15 +22,6 @@ frontend/dist/
 frontend/build/
 
 # ======================
-# Laravel
-# ======================
-backend/vendor/
-backend/storage/*.key
-backend/storage/logs/
-backend/storage/framework/
-backend/bootstrap/cache/
-
-# ======================
 # OS / Editor
 # ======================
 .DS_Store
