@@ -1,0 +1,11 @@
+/* src/modules/users/users.css */
+.users-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.users-title {
+  font-size: 24px;
+  font-weight: bold;
+}

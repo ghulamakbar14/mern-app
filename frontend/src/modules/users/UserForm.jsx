@@ -1,4 +1,4 @@
-import { Dialog, TextField, Button } from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { createUser } from "./users.api";
 
@@ -12,11 +12,17 @@ export default function UserForm({ open, onClose }) {
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <form onSubmit={handleSubmit(onSubmit)} style={{ padding: 20 }}>
+      <DialogTitle>Add / Edit User</DialogTitle>
+      <DialogContent>
         <TextField label="Name" {...register("name")} fullWidth />
         <TextField label="Email" {...register("email")} fullWidth />
-        <Button type="submit">Save</Button>
-      </form>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose}>Cancel</Button>
+        <Button onClick={handleSubmit(onSubmit)} variant="contained">
+          Save
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 }
