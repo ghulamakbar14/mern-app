@@ -6,6 +6,6 @@ export const create = async (req, res) => {
 }
 
 export const list = async (req, res) => {
-    const users = await service.getUsers();
+    const users = await service.getPagedUsers(req.query.page || 1, req.query.limit || 10);
     res.json(users);
 }

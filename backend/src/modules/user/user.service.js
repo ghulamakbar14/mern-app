@@ -8,7 +8,18 @@ const userService = {
     return User.create(userData);
   },
   //createUser: (data) => User.create(data),
-  getUsers: () => User.find().select(""),
+  getUsers: () => User.find().select("-password"),
+  getPagedUsers: async (page, limit) => {
+    const skip = (page - 1) * limit;
+    const usersPromise = User.find().select("-password").skip(skip).limit(limit);
+    const countPromise = User.countDocuments();
+    return Promise.all([usersPromise, countPromise]).then(([users, total]) => ({
+      users,
+      total,
+      page,
+      totalPages: Math.ceil(total / limit),
+    }));
+  },
 };
 
 export default userService;

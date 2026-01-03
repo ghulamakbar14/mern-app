@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchUsers } from "./Service";
+import { fetchUsers } from "./orders.api";
 
 export default function UserList() {
     const [users, setUsers] = useState([]);
@@ -14,7 +14,6 @@ export default function UserList() {
         loadList();
     }, []);
 
-    console.log('users', users);
     return (
             <div>
       <h3>User List</h3>

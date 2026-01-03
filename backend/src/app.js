@@ -1,16 +1,13 @@
 import express from "express";
 import cors from "cors";
-import userRoutes from './modules/user/user.routes.js';
+import routes from "./routes.js";
 //import errorMiddleware from './middlewares/error.middleware.js';
-import authRoutes from './modules/auth/auth.routes.js';
 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes);
+routes(app);
 
 //app.use(errorMiddleware);
 
