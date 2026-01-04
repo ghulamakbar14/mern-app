@@ -1,11 +1,37 @@
-import { List, ListItemButton } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Drawer, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import PeopleIcon from "@mui/icons-material/People";
 
-export default function Sidebar() {
+const Sidebar = () => {
   return (
-    <List sx={{ width: 200 }}>
-      <ListItemButton component={Link} to="/dashboard/users">Users</ListItemButton>
-      <ListItemButton component={Link} to="/dashboard/orders">Orders</ListItemButton>
-    </List>
+    <Drawer
+      variant="permanent"
+      sx={{
+        width: 240,
+        "& .MuiDrawer-paper": {
+          width: 240,
+          backgroundColor: "#0F172A",
+          color: "#E5E7EB",
+        },
+      }}
+    >
+      <List>
+        <ListItemButton>
+          <ListItemIcon sx={{ color: "#E5E7EB" }}>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Dashboard" />
+        </ListItemButton>
+
+        <ListItemButton>
+          <ListItemIcon sx={{ color: "#E5E7EB" }}>
+            <PeopleIcon />
+          </ListItemIcon>
+          <ListItemText primary="Users" />
+        </ListItemButton>
+      </List>
+    </Drawer>
   );
-}
+};
+
+export default Sidebar;
