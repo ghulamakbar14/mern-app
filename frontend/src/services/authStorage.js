@@ -7,5 +7,14 @@ export const getToken = () => {
 };
 
 export const removeToken = () => {
+  alert("Logging out...");
   localStorage.removeItem("token");
+};
+
+export const isAuthenticated = () => {
+  return !!getToken();
+};
+
+export const logout = () => {
+  removeToken();
 };

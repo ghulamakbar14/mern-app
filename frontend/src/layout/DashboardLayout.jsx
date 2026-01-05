@@ -12,7 +12,6 @@ const DashboardLayout = () => {
       <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
         <Header />
 
-        {/* 👇 THIS IS THE FIX */}
         <Box sx={{ flex: 1, p: 3, overflowY: "auto" }}>
           <Outlet />
         </Box>

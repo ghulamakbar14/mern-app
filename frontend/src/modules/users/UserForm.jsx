@@ -1,15 +1,30 @@
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { createUser } from "./users.api";
+import { createUser, updateUser } from "./users.api";
+import { useEffect } from "react";
 
-export default function UserForm({ open, onClose }) {
+export default function UserForm({ open, onClose, user }) {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
-    await createUser(data);
+    if (user) {
+      await updateUser(user.id, data);
+    } else {
+      await createUser(data);
+    }
     onClose();
   };
 
+  useEffect(() => {
+    if (user) {
+      // populate form with user data
+      for (const key in user) {
+        if (key !== "id") {
+          register(key).onChange({ target: { value: user[key] } });
+        }
+      }
+    }
+  }, [user, register]);
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Add / Edit User</DialogTitle>

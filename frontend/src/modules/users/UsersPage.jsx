@@ -8,6 +8,7 @@ import "./users.css";
 export default function UsersPage() {
   const [users, setUsers] = useState([]);
   const [open, setOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   const loadUsers = async () => {
     const res = await getUsers(1);
@@ -15,6 +16,16 @@ export default function UsersPage() {
   };
 
   useEffect(() => { loadUsers(); }, []);
+
+  const handleAdd = () => {
+    setSelectedUser(null); // add mode
+    setOpen(true);
+  };
+
+  const handleEdit = (user) => {
+    setSelectedUser(user); // edit mode
+    setOpen(true);
+  };
 
   const columns = [
     { field: "name", headerName: "Name", flex: 1 },
@@ -27,7 +38,10 @@ export default function UsersPage() {
         <Button
           variant="contained"
           size="small"
-          onClick={() => console.log("Edit", params.row.id)}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleEdit(params.row); // 🔑 pass full user
+          }}
         >
           Edit
         </Button>
@@ -39,13 +53,13 @@ export default function UsersPage() {
   return (
     <Box>
       <Typography variant="h4">Users</Typography>
-      <Button variant="contained" sx={{ mb: 2 }} onClick={() => setOpen(true)}>
+      <Button variant="contained" sx={{ mb: 2 }} onClick={handleAdd}>
         Add User
       </Button>
       <div style={{ height: 400, width: "100%" }}>
-        <DataGrid rows={users} columns={columns} pageSize={5} />
+        <DataGrid rows={users} columns={columns} pageSize={5} disableRowSelectionOnClick />
       </div>
-      <UserForm open={open} onClose={() => { setOpen(false); loadUsers(); }} />
+      <UserForm open={open} onClose={() => { setOpen(false); loadUsers(); }} user={selectedUser} />
     </Box>
   );
 }

@@ -1,9 +1,9 @@
 import { Button, TextField, Container, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { login } from "./auth.api";
-import { setToken } from "../services/authStorage";
+import { login } from "../../auth/auth.api";
+import { setToken } from "../../services/authStorage";
 
-export default function Login() {
+const LoginPage = () => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
@@ -23,3 +23,5 @@ export default function Login() {
     </Container>
   );
 }
+
+export default LoginPage;

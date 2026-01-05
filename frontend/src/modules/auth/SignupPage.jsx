@@ -1,13 +1,13 @@
 import { Button, TextField, Container } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { signup } from "./auth.api";
+import { signup } from "../../auth/auth.api";
 
-export default function Signup() {
+export default function SignupPage() {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
     await signup(data);
-    window.location.href = "/";
+    window.location.href = "/login";
   };
 
   return (
