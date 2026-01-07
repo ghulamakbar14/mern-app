@@ -20,6 +20,12 @@ const userService = {
       totalPages: Math.ceil(total / limit),
     }));
   },
+  updateUser: async (userId, updatedData) => {
+    if (updatedData.password) {
+      updatedData.password = await bcrypt.hash(updatedData.password, 10);
+    }
+    return User.findByIdAndUpdate(userId, updatedData, { new: true }).select("-password");
+  },
 };
 
 export default userService;

@@ -4,7 +4,7 @@ import { createUser, updateUser } from "./users.api";
 import { useEffect } from "react";
 
 export default function UserForm({ open, onClose, user }) {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
 
   const onSubmit = async (data) => {
     if (user) {
@@ -20,13 +20,13 @@ export default function UserForm({ open, onClose, user }) {
       // populate form with user data
       for (const key in user) {
         if (key !== "id") {
-          register(key).onChange({ target: { value: user[key] } });
+          setValue(key, user[key]);
         }
       }
     }
-  }, [user, register]);
+  }, [user, setValue]);
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open} onClose={onClose} minWidth={800}>
       <DialogTitle>Add / Edit User</DialogTitle>
       <DialogContent>
         <TextField label="Name" {...register("name")} fullWidth />

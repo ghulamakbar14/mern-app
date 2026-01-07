@@ -9,21 +9,30 @@ export default function UsersPage() {
   const [users, setUsers] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [total, setTotal] = useState(0);
 
-  const loadUsers = async () => {
-    const res = await getUsers(1);
+   const [paginationModel, setPaginationModel] = useState({
+    page: 0,
+    pageSize: 5,
+  });
+
+  const loadUsers = async (page, pageSize) => {
+    const res = await getUsers(page + 1, pageSize);
     setUsers(res.data.users.map(u => ({ id: u._id, ...u })));
+    setTotal(res.data.total);
   };
 
-  useEffect(() => { loadUsers(); }, []);
+  useEffect(() => {
+    loadUsers(paginationModel.page, paginationModel.pageSize);
+  }, [paginationModel]);
 
   const handleAdd = () => {
-    setSelectedUser(null); // add mode
+    setSelectedUser(null);
     setOpen(true);
   };
 
   const handleEdit = (user) => {
-    setSelectedUser(user); // edit mode
+    setSelectedUser(user);
     setOpen(true);
   };
 
@@ -40,7 +49,7 @@ export default function UsersPage() {
           size="small"
           onClick={(e) => {
             e.stopPropagation();
-            handleEdit(params.row); // 🔑 pass full user
+            handleEdit(params.row);
           }}
         >
           Edit
@@ -57,7 +66,12 @@ export default function UsersPage() {
         Add User
       </Button>
       <div style={{ height: 400, width: "100%" }}>
-        <DataGrid rows={users} columns={columns} pageSize={5} disableRowSelectionOnClick />
+        <DataGrid rows={users} columns={columns} pageSizeOptions={[5, 10, 20, 50, 100]} disableRowSelectionOnClick
+          paginationModel={paginationModel}
+          paginationMode="server"
+          rowCount={total}
+          onPaginationModelChange={setPaginationModel}
+        />
       </div>
       <UserForm open={open} onClose={() => { setOpen(false); loadUsers(); }} user={selectedUser} />
     </Box>

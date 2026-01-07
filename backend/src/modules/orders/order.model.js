@@ -32,4 +32,4 @@ export const Order = sequelize.define("Order", {
 });
 
 // Sync the model with the database
-Order.sync();
+//Order.sync();
